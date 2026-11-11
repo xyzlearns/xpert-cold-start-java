@@ -1,0 +1,28 @@
+# Java
+*.class
+*.jar
+*.war
+
+# Maven
+target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Dataset - never commit challenge data
+data/
+**/data/
+answers/
+
+# Generated output
+output.json
+
+# OS
+.DS_Store
