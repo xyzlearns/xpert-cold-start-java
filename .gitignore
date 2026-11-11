@@ -87,3 +87,7 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+.cache/
+usage.jsonl
+__pycache__/
+*.pyc

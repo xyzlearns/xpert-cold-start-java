@@ -1,0 +1,5 @@
+# Zero external dependencies required — runs on Python 3.9+ standard library.
+# Optional development/testing utilities if desired in local environments:
+# pydantic>=2.0
+# httpx>=0.24
+# pytest>=7.0

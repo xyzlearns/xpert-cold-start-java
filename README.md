@@ -1,4 +1,4 @@
-# Cold Start: starter kit
+# Cold Start: Python pipeline
 
 The challenge is on https://goals.xpert.chat/w/intern. Read it first. This kit gets you running
 before the real data arrives.
@@ -16,8 +16,25 @@ before the real data arrives.
 | `WRITEUP.md` | The template for your write-up |
 | `ai-logs/` | Where your AI session transcripts go |
 
-Python 3.9 or later. Nothing to install. You can write your solution in any language, as long as
-`run.sh` runs it on a clean Linux machine.
+Python 3.10 or later. Nothing to install. The pipeline uses deterministic extraction first, then
+uses the configured OpenAI-compatible model to classify people from compact, grounded profiles and
+to decide whether each group belongs to the user, a person, or a known organisation, then
+adjudicate goal and open-loop candidates. With no LLM credentials it still produces valid
+conservative output.
+
+For a local Ollama Qwen3 model, use `LLM_BASE_URL=http://127.0.0.1:11434/v1`,
+`LLM_API_KEY=ollama`, `LLM_MODEL=qwen3:8b`, and `XPERT_DISABLE_THINKING=true`.
+Verify any provider before sending challenge data with `python3 test_llm.py`.
+For local Qwen, `XPERT_LOCAL_CANDIDATES` controls recall versus runtime; it defaults to 3 and
+each candidate becomes one small model request.
+`XPERT_REMOTE_CANDIDATES` defaults to 36 for stronger hosted models; lower it to reduce cost.
+Hosted relationship classification is batched in groups of 24 people; set `XPERT_PEOPLE_BATCH` to
+trade response size against the number of requests.
+Hosted group ownership is batched in groups of 10; set `XPERT_GROUP_BATCH` to adjust that bound.
+If a provider rejects `response_format`, set `XPERT_DISABLE_JSON_MODE=true`; prompts still require
+JSON and the client validates the parsed result.
+For Gemini 3.x local development, set `XPERT_GEMINI_INTERACTIONS=true`; this uses Google's native
+Interactions API. Leave it unset for the standard OpenAI-compatible challenge endpoint.
 
 ## Try it now
 
